@@ -10,6 +10,7 @@ import sessionsRouter from './routes/sessions.router.js';
 
 const app = express();
 const PORT = process.env.PORT||8080;
+//string de conexión a la BBDD de MongoDB Atlas
 const connection = mongoose.connect(`mongodb+srv://juandeargentina:codernameJT@cluster0.o6o5g.mongodb.net/adoptme?retryWrites=true&w=majority&appName=Cluster0`);
 
 app.use(express.json());

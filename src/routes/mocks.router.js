@@ -27,13 +27,13 @@ router.post('/generateData', async (req, res) => {
         return res.status(400).send({ status: 'error', error: 'Invalid parameters' });
       }
   
-      // Generate and insert mock users
+      // Generar e insertar mock users
       const mockUsers = generateMockUsers(users);
       for (const user of mockUsers) {
         await usersService.create(user);
       }
   
-      // Generate and insert mock pets
+      // Generar e insertar mock pets
       for (let i = 0; i < pets; i++) {
         const mockPet = PetDTO.getPetInputFrom({
           name: `Pet${i}`,
