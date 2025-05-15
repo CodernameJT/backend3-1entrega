@@ -1,12 +1,14 @@
 import { Router } from 'express';
-import { generateMockUsers } from '../utils/mocking.module.js';
+import { generateMockUsers, generateMockPets  } from '../utils/mocking.module.js';
 import { usersService, petsService } from '../services/index.js';
 import PetDTO from '../dto/Pet.dto.js';
+import logger from '../utils/logger.js';
 
 const router = Router();
 
 // Mock endpoint
 router.get('/', (req, res) => {
+  logger.info('Mock endpoint accessed');
   res.json({ message: 'This is a mock endpoint!' });
 });
 
@@ -16,10 +18,16 @@ router.get('/mockingusers', (req, res) => {
   res.json(mockUsers);
 });
 
+// Mocking pets endpoint
+router.get('/mockingpets', (req, res) => {
+  const mockPets = generateMockPets(100); // Generate 100 mock pets
+  res.json(mockPets);
+});
+
 // Generate data endpoint
 router.post('/generateData', async (req, res) => {
     try {
-      console.log('Request body:', req.body); // Debug log
+      logger.info('POST /generateData called');
   
       const { users, pets } = req.body;
   
@@ -45,7 +53,7 @@ router.post('/generateData', async (req, res) => {
   
       res.send({ status: 'success', message: 'Mock data generated successfully' });
     } catch (error) {
-      console.error(error);
+      logger.error(`Error in /generateData: ${error.message}`);
       res.status(500).send({ status: 'error', error: 'Internal server error' });
     }
   });

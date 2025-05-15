@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import { faker } from '@faker-js/faker';
 
 export const generateMockUsers = (count) => {
   const users = [];
@@ -17,4 +18,18 @@ export const generateMockUsers = (count) => {
   }
 
   return users;
+};
+
+export const generateMockPets = (count) => {
+  const pets = [];
+  for (let i = 0; i < count; i++) {
+    pets.push({
+      name: faker.person.firstName(), // Use a random first name as pet name
+      specie: faker.animal.type(),    // Use animal type for species
+      birthDate: faker.date.past({ years: 10 }).toISOString().split('T')[0],
+      image: faker.image.urlPicsumPhotos({ width: 200, height: 200 }),
+      adopted: false,
+    });
+  }
+  return pets;
 };
